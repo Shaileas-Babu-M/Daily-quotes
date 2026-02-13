@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Daily Motivation</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 16px;
+            width: 500px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .quote {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .author {
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #3b82f6;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        .favorites {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 16px;
+            width: 400px;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        .fav-item {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <h1>🔥 Daily Motivation</h1>
+
+        <div class="quote">
+            "<span th:text="${text}"></span>"
+        </div>
+
+        <div class="author">
+            - <span th:text="${author}"></span>
+        </div>
+
+        <form method="get" action="/">
+            <button type="submit">New Quote</button>
+        </form>
+
+        <form method="post" action="/favorite">
+            <button type="submit">❤️ Add to Favorites</button>
+        </form>
+    </div>
+
+    <div class="favorites">
+        <h2>❤️ Favorites</h2>
+
+        <div th:each="fav : ${favorites}" class="fav-item">
+            "<span th:text="${fav['content']}"></span>"
+            <br/>
+            <small>- <span th:text="${fav['author']}"></span></small>
+            <hr/>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
